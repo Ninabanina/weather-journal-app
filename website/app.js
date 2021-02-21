@@ -32,22 +32,20 @@ function generateData(e){
             humidity,
             country,
             Userfeelings
-        })
+        });
+        displayWeatherData();
     })
-    .then(displayWeatherData())
 }
 
 //Get Weather Data by ZIP
 const getWeatherData = async (baseURL, zip, apiKey)=>{
-
-    const res = await fetch(`${baseURL}?zip=${zip}&appid=${apiKey}`)
-    try {
-      const data = await res.json();
-      console.log(data)
-      return data;
-    }  catch(error) {
-      console.log("error", error);
-    }
+  const res = await fetch(`${baseURL}?zip=${zip}&appid=${apiKey}`)
+  try {
+    const data = await res.json();
+    return data;
+  }  catch(error) {
+    console.log("error", error);
+  }
 }
 
 // POST to server
@@ -65,7 +63,6 @@ const displayWeatherData = async () => {
     const request = await fetch('/all');
     try{
       const allData = await request.json();
-      console.log(allData);
       document.getElementById('date').innerHTML = newDate;
       document.getElementById('temp').innerHTML = "City:" + allData.city;
       document.getElementById('content').innerHTML ="temperature: " + allData.temperature + allData.city + allData.description + allData.icon + allData.windSpeed + allData.humidity + allData.country + allData.Userfeelings;
